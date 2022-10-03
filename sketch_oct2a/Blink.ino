@@ -1,7 +1,7 @@
 
 #include "includes.h"
 
-const int deviceSize = 5;
+const int deviceSize = 3;
 
 int redPin = 2;
 int greenPin = 4;
@@ -22,18 +22,25 @@ void setup()
 {
   // leds[0] = new Led(redPin);
   Led * red = new Led(redPin);
+  Led * green = new Led(greenPin);
+  MomentaryButton * testButton = new MomentaryButton(buttonPin);
   // leds[1] = new Led(greenPin);
   // buttons[0] = new MomentaryButton(buttonPin);
   // buttons[1] = new MomentaryButton(otherButtonPin);
 
-  dev[0] = new Led(redPin);
-  dev[1] = red;
-  dev[2] = new Led(greenPin);
-  dev[3] = new MomentaryButton(buttonPin);
-  dev[4] = new MomentaryButton(otherButtonPin);
+  dev[0] = red;
+  dev[1] = green;
+  dev[2] = testButton;
+  //dev[3] = new MomentaryButton(otherButtonPin);
 
   Serial.begin(115200);
-  red->Blink(500);
+
+  testButton->RegisterOnPressed(red);
+  testButton->RegisterOnPressed(green);
+
+  //red->On();
+
+   red->Blink(500);
   // red.Disable();
 }
 

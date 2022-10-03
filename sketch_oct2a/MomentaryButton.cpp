@@ -7,10 +7,25 @@ MomentaryButton::MomentaryButton(int p) : IODevice(p)
 
 void MomentaryButton::Update()
 {
-
+    if (digitalRead(pin) == HIGH)
+    {   
+        Serial.print("button down     ");
+    } else if(digitalRead(pin) == LOW)
+    {
+        Serial.print("Not Pressed      ");
+    }
 }
 
-void OnPressed()
+void MomentaryButton::RegisterOnPressed(Led * index)
 {
-    
+    if(registeredIndex < maxRegistered)
+    {
+        registeredOnPressed[registeredIndex] = index;
+        index++;
+    }
+}
+
+void MomentaryButton::OnPressed()
+{
+
 }

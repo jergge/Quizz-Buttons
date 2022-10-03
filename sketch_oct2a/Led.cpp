@@ -3,6 +3,7 @@
 Led::Led(int p)  : IODevice(p)
 {
     pinMode(pin, OUTPUT);
+    TurnOn();
 }
 
 void Led::Update()
