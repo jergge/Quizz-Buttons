@@ -1,9 +1,20 @@
-void setup() {
-  // put your setup code here, to run once:
+#include "includes.h"
+
+int redPin = 2;
+int greenPin = 4;
+
+Led red(2);
+
+void setup() 
+{
+  Serial.begin(115200);
+  red.Blink(100);
 
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  //this is a comme
+void loop() 
+{
+
+  red.Update();
+
 }
