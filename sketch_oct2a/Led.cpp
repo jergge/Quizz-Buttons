@@ -8,6 +8,12 @@ Led::Led(int p)
 
 void Led::Update()
 {
+    if (!enabled)
+    {
+        TurnOff();
+        StopBlink();
+        return;
+    }
     if(blinking)
     {
         if (nextBlinkChange <= millis())
@@ -54,20 +60,33 @@ void Led::Off()
 void Led::Blink(int d, bool startOn = true)
 {
     blinkDelay = d;
-    blinking = true;
 
-    if (startOn)
+    if (!blinking)
     {
-        TurnOn();
-    } else
-    {
-        TurnOff();    
+        if (startOn)
+        {
+            TurnOn();
+        } else
+        {
+            TurnOff();    
+        }
     }
     
     nextBlinkChange = d + millis();
+    blinking = true;
 }
 
 void Led::StopBlink()
 {
     blinking = false;
+}
+
+void Led::Enable()
+{
+    enabled = true;
+}
+
+void Led::Disable()
+{
+    enabled = false;
 }
