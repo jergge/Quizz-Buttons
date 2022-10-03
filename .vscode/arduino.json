@@ -1,0 +1,7 @@
+{
+    "board": "arduino:avr:uno",
+    "port": "COM3",
+    "sketch": "sketch_oct2a\\Blink.ino",
+    "output": "G:\\Quizz Buttons\\log.txt",
+    "programmer": "arduinoasisp"
+}
