@@ -1,15 +1,16 @@
 #include "Led.h"
 
-Led::Led(int p)
+Led::Led(int p)  : IODevice(p)
 {
-    pin = p;
     pinMode(pin, OUTPUT);
 }
 
 void Led::Update()
 {
+    //Serial.print("Updating     ");
     if (!enabled)
     {
+        Serial.print("enabled was false     ");
         TurnOff();
         StopBlink();
         return;
@@ -20,6 +21,7 @@ void Led::Update()
         {
             Flip();
             nextBlinkChange += blinkDelay;
+            //Serial.print("Updating and blinking!     ");
         }
     }
 }
@@ -57,7 +59,7 @@ void Led::Off()
     TurnOff();
 }
 
-void Led::Blink(int d, bool startOn = true)
+void Led::Blink(int d, bool startOn)
 {
     blinkDelay = d;
 
@@ -74,19 +76,11 @@ void Led::Blink(int d, bool startOn = true)
     
     nextBlinkChange = d + millis();
     blinking = true;
+
+    //Serial.print("Set blinking to true      ");
 }
 
 void Led::StopBlink()
 {
     blinking = false;
-}
-
-void Led::Enable()
-{
-    enabled = true;
-}
-
-void Led::Disable()
-{
-    enabled = false;
 }

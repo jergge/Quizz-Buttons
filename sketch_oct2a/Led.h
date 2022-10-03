@@ -1,25 +1,23 @@
+#pragma once
 #include <Arduino.h>
+#include "IODevice.h"
 
-class Led
+class Led: public IODevice
 {
     public:
         Led(int pinNumber);
-        void Update();
+        void Update() override;
         void On();
         void Off();
         void Blink(int delayMS, bool startOn = true);
         void StopBlink();
-        void Enable();
-        void Disable();
 
     protected:
         void TurnOn();
         void TurnOff();
         void Flip();
-        int pin;
         bool output;
         bool blinking = false;
-        bool enabled = true;
         int blinkDelay;
         unsigned long nextBlinkChange;
 };

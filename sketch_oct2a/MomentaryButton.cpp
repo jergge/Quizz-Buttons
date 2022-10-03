@@ -1,11 +1,16 @@
 #include "MomentaryButton.h"
 
-MomentaryButton::MomentaryButton(int p)
+MomentaryButton::MomentaryButton(int p) : IODevice(p)
 {
-    pin = p;
+    pinMode(p, INPUT);
 }
 
 void MomentaryButton::Update()
 {
 
+}
+
+void OnPressed()
+{
+    
 }

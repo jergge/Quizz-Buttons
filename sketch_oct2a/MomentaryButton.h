@@ -1,9 +1,10 @@
-#include <Arduino.h>
-#include "IODevice.h"
+#pragma once
+#include "includes.h"
 
 class MomentaryButton: public IODevice
 {
 private:
+    void OnPressed();
 
 public:
     MomentaryButton(int pinNumber);
