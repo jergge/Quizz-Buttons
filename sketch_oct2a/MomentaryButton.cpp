@@ -1,31 +1,46 @@
 #include "MomentaryButton.h"
 
+// Buttons are wired between InputPin and GND
+// When the InputPin is HIGHT -> the button is not pressed
+// Pressing the button shorts to GND and sends LOW to InputPin
+
 MomentaryButton::MomentaryButton(int p) : IODevice(p)
 {
-    pinMode(p, INPUT);
+    pinMode(p, INPUT_PULLUP);
+    Serial.print("Registered a button on pin ");
+        Serial.println(p);
 }
 
 void MomentaryButton::Update()
 {
-    if (digitalRead(pin) == HIGH)
+    int currentState = digitalRead(pin);
+
+    if (currentState == LOW)
     {   
-        Serial.print("button down     ");
-    } else if(digitalRead(pin) == LOW)
+        // Serial.print("      1     ");
+    } else if(currentState == HIGH)
     {
-        Serial.print("Not Pressed      ");
+        // Serial.print("      0      ");
     }
+
+    if ( currentState != previousState )
+    {
+        if (currentState == HIGH)
+        {
+
+        } else
+        {
+            Serial.print("      button pressed down      ");
+        }
+    }
+    previousState = currentState;
 }
 
-void MomentaryButton::RegisterOnPressed(Led * index)
+bool MomentaryButton::Pressed()
 {
-    if(registeredIndex < maxRegistered)
+    if (digitalRead(pin) == LOW)
     {
-        registeredOnPressed[registeredIndex] = index;
-        index++;
+        return true;
     }
-}
-
-void MomentaryButton::OnPressed()
-{
-
+    return false;
 }

@@ -3,7 +3,9 @@
 Led::Led(int p)  : IODevice(p)
 {
     pinMode(pin, OUTPUT);
-    TurnOn();
+    Serial.print("Registered an LED on pin ");
+        Serial.println(p);
+    TurnOff();
 }
 
 void Led::Update()
@@ -11,7 +13,7 @@ void Led::Update()
     //Serial.print("Updating     ");
     if (!enabled)
     {
-        Serial.print("enabled was false     ");
+        //Serial.print("enabled was false     ");
         TurnOff();
         StopBlink();
         return;
@@ -84,4 +86,12 @@ void Led::Blink(int d, bool startOn)
 void Led::StopBlink()
 {
     blinking = false;
+    //Serial.print("      I have stopped blinking      ");
+    if (true == false)
+    {
+        TurnOn();
+    } else
+    {
+        TurnOff();
+    }
 }

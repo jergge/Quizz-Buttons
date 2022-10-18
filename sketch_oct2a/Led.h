@@ -1,6 +1,7 @@
 #pragma once
-#include <Arduino.h>
 #include "IODevice.h"
+#include "includes.h"
+#include "Jergge.h"
 
 class Led: public IODevice
 {
