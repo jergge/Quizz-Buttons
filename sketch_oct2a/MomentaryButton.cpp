@@ -4,16 +4,21 @@
 // When the InputPin is HIGHT -> the button is not pressed
 // Pressing the button shorts to GND and sends LOW to InputPin
 
-MomentaryButton::MomentaryButton(uint8_t p) : IODevice(p)
+MomentaryButton::MomentaryButton(uint8_t p, bool pull) : IODevice(p)
 {
-    pinMode(p, INPUT_PULLUP);
+    if(pull)
+    {
+        pinMode(p, INPUT_PULLUP);
+    } else {
+        pinMode(p, INPUT);
+    }
     Serial.print("Registered a button on pin ");
         Serial.println(p);
 }
 
 void MomentaryButton::Update()
 {
-    int currentState = digitalRead(pin);
+    int currentState = Pressed();
 
     if (currentState == LOW)
     {   
@@ -38,7 +43,11 @@ void MomentaryButton::Update()
 
 bool MomentaryButton::Pressed()
 {
-    if (digitalRead(pin) == LOW)
+    if (
+        ( digitalRead(pin) == LOW  &&  pullUp )
+        ||
+        ( digitalRead(pin) == HIGH && !pullUp )
+        )
     {
         return true;
     }

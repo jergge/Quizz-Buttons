@@ -8,7 +8,7 @@ GameManager *GM = nullptr;
 
 void setup() 
 {
-  Serial.begin(115200);
+  //Serial.begin(115200);
     //Serial.println(" ");
     Serial.println("Performing initial setup......... ");
     Serial.println(" ");

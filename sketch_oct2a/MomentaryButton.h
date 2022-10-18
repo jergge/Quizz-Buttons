@@ -5,13 +5,13 @@
 
 class MomentaryButton: public IODevice
 {
-public:
-    MomentaryButton(uint8_t pinNumber);
-    void Update();
-    bool Pressed();
-private:
-    int previousState;
-    
+    public:
+        MomentaryButton(uint8_t pinNumber, bool pullUp = false);
+        void Update();
+        bool Pressed();
+    private:
+        int previousState;
+        bool pullUp = false; 
 };
 
 

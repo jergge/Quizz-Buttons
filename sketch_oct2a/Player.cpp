@@ -6,9 +6,9 @@ Player::Player(){}
 //player IDs starting from index in const pin offset
 Player::Player(int pid)
 {
-    Serial.println(" ");
-    Serial.print("Creating Player ");
-    Serial.println(pid);
+        Serial.println(" ");
+        Serial.print("Creating Player ");
+        Serial.println(pid);
     id = pid;
     led = new Led(pid * 2 + pinOffset);
     button = new MomentaryButton(pid * 2 + 1 + pinOffset);
@@ -51,7 +51,6 @@ bool Player::ButtonPushed()
         //     Serial.println("'s button is NOT pressed!");
 
     }
-
     return button->Pressed();
 }
 

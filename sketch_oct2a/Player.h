@@ -15,12 +15,12 @@ class Player
         Player();
         Player(int playerID);
         int id;
+        bool ButtonPushed();
+        bool IsEnabled();
         void Enable();
         void Disable();
-        bool ButtonPushed();
         void LedEnable();
         void LedDisable();
-        bool IsEnabled();
 
     protected:
         Led *led = nullptr;

@@ -10,7 +10,7 @@ void GameManager::Setup()
 {
     //initialise the size of the player array
         Player *t;
-        t = new Player[(sizeof(Player))*numberOfPlayers];
+        t = new Player[(sizeof(Player*)) * numberOfPlayers];
         //and assign the pointer to the array to the class member
         playerArray = &t;
 
