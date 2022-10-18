@@ -45,7 +45,7 @@ void GameManager::WaitingForPlayers()
         {
             AwaitingAnswerFrom(i);
             playerArray[i]->LedEnable();
-            //DisableAllPlayersExcept(i);
+            DisableAllPlayersLedsExcept(i);
             state = 1;
             Serial.println(" ");
             break;
@@ -56,8 +56,8 @@ void GameManager::WaitingForPlayers()
 void GameManager::AwaitingAnswerFrom(int playerID)
 {
     playerAnswering = playerID;
-    Serial.println(" ");
-    Serial.print("Awaiting an answer from player ");
+        Serial.println(" ");
+        Serial.print("Awaiting an answer from player ");
         Serial.println(playerID);
 }
 
@@ -65,14 +65,14 @@ void GameManager::WaitingForMaster()
 {
     if (master->No())
     {
-        //Serial.println(" ");
-        Serial.println("Oh no! That was the wrong answer... ");
+            //Serial.println(" ");
+            Serial.println("Oh no! That was the wrong answer... ");
         playerArray[playerAnswering]->LedDisable();
         playerArray[playerAnswering]->Disable();
         ReopenRound();
     } else if (master->Yes())
     {
-        Serial.println("Correct answer given. Well Done!");
+            Serial.println("Correct answer given. Well Done!");
         playerArray[playerAnswering]->LedDisable();
         NewRound();
     }
@@ -80,31 +80,37 @@ void GameManager::WaitingForMaster()
 
 void GameManager::ReopenRound()
 {
-    state = 0;
-    Serial.println(" ");
-    Serial.println("Reopening round for remaining players ");
-    Serial.println(" ");
+    if(NoActivePlayersRemaining())
+    {
+        NewRound();
+    } else {
+        EnableActivePlayersLeds();
+        state = 0;
+            Serial.println(" ");
+            Serial.println("Reopening round for remaining players ");
+            Serial.println(" ");
+    }
 }
 
 void GameManager::NewRound()
 {
     delay(200);
-    Serial.println(" ");
-    Serial.println("New Game round! (new question to answer) ");
-    Serial.println(" ");
+        Serial.println(" ");
+        Serial.println("New Game round! (new question to answer) ");
+        Serial.println(" ");
     EnableAllPlayers();
 
     //set the sate to 0
     state = 0;
 }
 
-void GameManager::DisableAllPlayersExcept(int id)
+void GameManager::DisableAllPlayersLedsExcept(int id)
 {
     for ( int i = 0; i < numberOfPlayers; i++)
     {
         if(i != id)
         {
-            playerArray[i]->Disable();
+            playerArray[i]->LedDisable();
         }
     }
 }
@@ -115,5 +121,29 @@ void GameManager::EnableAllPlayers()
     for (int i = 0; i<numberOfPlayers; i++)
     {
         playerArray[i]->Enable();
+    }
+}
+
+bool GameManager::NoActivePlayersRemaining()
+{
+    for ( int i = 0; i < numberOfPlayers; i++)
+    {
+        if ( playerArray[i]->IsEnabled() )
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void GameManager::EnableActivePlayersLeds()
+{
+    for (int i = 0; i < numberOfPlayers; i++)
+    {
+        if ( playerArray[i]->IsEnabled() )
+        {
+            playerArray[i]->LedEnable();
+        }
     }
 }

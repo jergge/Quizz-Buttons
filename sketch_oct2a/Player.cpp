@@ -20,6 +20,7 @@ void Player::Enable()
     Serial.print("Player ");
         Serial.print(id);
         Serial.println(" has been enabled");
+    LedEnable();
 }
 
 void Player::Disable()
@@ -28,6 +29,7 @@ void Player::Disable()
     Serial.print("Player ");
         Serial.print(id);
         Serial.println(" has been disabled");
+    LedDisable();
 }
 
 bool Player::ButtonPushed()
@@ -67,4 +69,9 @@ void Player::LedEnable()
     Serial.print("Player ");
         Serial.print(id);
         Serial.println("'s LED is on");
+}
+
+bool Player::IsEnabled()
+{
+    return enabled;
 }

@@ -20,6 +20,7 @@ class Player
         bool ButtonPushed();
         void LedEnable();
         void LedDisable();
+        bool IsEnabled();
 
     protected:
         Led *led = nullptr;

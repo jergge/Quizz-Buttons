@@ -42,5 +42,9 @@ class GameManager
         void ReopenRound();
 
         void EnableAllPlayers();
-        void DisableAllPlayersExcept(int id);
+        void DisableAllPlayersLedsExcept(int id);
+
+        bool NoActivePlayersRemaining();
+
+        void EnableActivePlayersLeds();
 };
