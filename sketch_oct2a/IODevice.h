@@ -4,11 +4,11 @@
 class IODevice
 {
 protected:
-    int pin;
+    uint8_t pin;
     bool enabled = true;
 public:
     virtual void Update();
-    IODevice(int pinNumber);
+    IODevice(uint8_t pinNumber);
     IODevice() {};
     void Enable();
     void Disable();

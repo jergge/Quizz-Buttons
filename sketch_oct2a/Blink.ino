@@ -3,16 +3,20 @@
 //max number of player is 6
 const int numberOfPlayers = 3;
 
-Quizzmaster *master = new Quizzmaster(0, 1);
+Quizzmaster *master;
 
-GameManager *GM = new GameManager(numberOfPlayers, master);
+GameManager *GM;
 
 void setup() 
 {
   Serial.begin(115200);
     //Serial.println(" ");
     Serial.println("Performing initial setup......... ");
-    //Serial.println(" ");
+    Serial.println(" ");
+
+    master = new Quizzmaster(A0, A1);
+
+    GM = new GameManager(numberOfPlayers, master);
 
   GM->Setup();
 

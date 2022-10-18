@@ -5,7 +5,7 @@
 class Quizzmaster
 {
     public:
-        Quizzmaster(int APortYes, int APortNo);
+        Quizzmaster(uint8_t APortYes, uint8_t APortNo);
         bool Yes();
         bool No();
 

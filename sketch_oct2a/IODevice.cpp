@@ -10,7 +10,7 @@ void IODevice::Disable()
     enabled = false;
 }
 
-IODevice::IODevice(int p)
+IODevice::IODevice(uint8_t p)
 {
     pin = p;
 }

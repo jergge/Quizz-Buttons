@@ -1,9 +1,11 @@
 #include "Quizzmaster.h"
 
-Quizzmaster::Quizzmaster(int y, int n)
+Quizzmaster::Quizzmaster(uint8_t y, uint8_t n)
 {
-    buttonNo = new MomentaryButton(n);
+    Serial.println("Creating the Quizzmaster");
+    //Serial.println(" ");
     buttonYes = new MomentaryButton(y);
+    buttonNo = new MomentaryButton(n);
 }
 
 bool Quizzmaster::No()

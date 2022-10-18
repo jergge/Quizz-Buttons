@@ -72,6 +72,8 @@ void GameManager::WaitingForMaster()
         ReopenRound();
     } else if (master->Yes())
     {
+        Serial.println("Correct answer given. Well Done!");
+        playerArray[playerAnswering]->LedDisable();
         NewRound();
     }
 }

@@ -6,7 +6,7 @@
 class MomentaryButton: public IODevice
 {
 public:
-    MomentaryButton(int pinNumber);
+    MomentaryButton(uint8_t pinNumber);
     void Update();
     bool Pressed();
 private:
