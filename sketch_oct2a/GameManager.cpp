@@ -94,7 +94,6 @@ void GameManager::NewRound()
     Serial.println(" ");
     EnableAllPlayers();
 
-
     //set the sate to 0
     state = 0;
 }

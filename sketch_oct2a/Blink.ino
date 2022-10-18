@@ -1,11 +1,10 @@
 #include "GameManager.h"
 
-//max number of player is 6
+//max number of player is 6 (uses digital pins 2-13)
 const int numberOfPlayers = 3;
 
-Quizzmaster *master;
-
-GameManager *GM;
+Quizzmaster *master = nullptr;
+GameManager *GM = nullptr;
 
 void setup() 
 {
@@ -15,7 +14,6 @@ void setup()
     Serial.println(" ");
 
     master = new Quizzmaster(A0, A1);
-
     GM = new GameManager(numberOfPlayers, master);
 
   GM->Setup();

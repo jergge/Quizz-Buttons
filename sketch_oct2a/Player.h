@@ -22,8 +22,8 @@ class Player
         void LedDisable();
 
     protected:
-        Led *led;
-        MomentaryButton *button;
+        Led *led = nullptr;
+        MomentaryButton *button = nullptr;
         const int pinOffset = 2;
         bool enabled = false;
 };

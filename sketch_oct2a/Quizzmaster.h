@@ -10,6 +10,6 @@ class Quizzmaster
         bool No();
 
     protected:
-        MomentaryButton *buttonYes;
-        MomentaryButton *buttonNo;
+        MomentaryButton *buttonYes = nullptr;
+        MomentaryButton *buttonNo = nullptr;
 };
