@@ -10,7 +10,9 @@ Player::Player(int pid)
         Serial.print("Creating Player ");
         Serial.println(pid);
     id = pid;
+    Serial.print("Creating led ");
     led = new Led(pid * 2 + pinOffset);
+    Serial.print("Creating button ");
     button = new MomentaryButton(pid * 2 + 1 + pinOffset);
 }
 

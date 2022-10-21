@@ -25,6 +25,8 @@ class Player
     protected:
         Led *led = nullptr;
         MomentaryButton *button = nullptr;
+        
+        //not using the first 2 as i can't bebug over USB
         const int pinOffset = 2;
         bool enabled = false;
 };

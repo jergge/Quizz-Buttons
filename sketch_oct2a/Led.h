@@ -1,9 +1,8 @@
 #pragma once
 #include "IODevice.h"
-#include "includes.h"
-#include "Jergge.h"
+#include "UpdateableObject.h"
 
-class Led: public IODevice
+class Led: public IODevice, public UpdateableObject
 {
     public:
         Led(int pinNumber);

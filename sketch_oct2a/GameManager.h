@@ -12,8 +12,9 @@ class GameManager
 
     protected:
         int numberOfPlayers;
-        Player **playerArray = nullptr;
-        Quizzmaster* master = nullptr;
+        Player * * playerArray = nullptr;
+        Quizzmaster * master = nullptr;
+        
         // state 0 = waiting for people to buzz (some may be disabled)
         // state 1 = waiting for quizzmaster to respond
         int state;

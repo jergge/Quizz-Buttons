@@ -9,10 +9,13 @@ GameManager::GameManager(int playerCount, Quizzmaster* inMaster)
 void GameManager::Setup()
 {
     //initialise the size of the player array
-        Player *t;
-        t = new Player[(sizeof(Player*)) * numberOfPlayers];
+        // Player *array;
+        Player *array[numberOfPlayers];
+        // array = new Player[(sizeof(Player*)) * numberOfPlayers];
+        // array = new Player[(sizeof(Player*)) * numberOfPlayers];
         //and assign the pointer to the array to the class member
-        playerArray = &t;
+        // playerArray = *array;
+        playerArray = array;
 
     //create each of the players
     //we assume that the physical connections are from the lowest number and in ascending order (for now)
@@ -26,10 +29,10 @@ void GameManager::Setup()
 
 void GameManager::Update()
 {
-    if (state == 0)
+    if          (state == 0)
     {
         WaitingForPlayers();
-    } else if (state == 1)
+    } else if   (state == 1)
     {
         WaitingForMaster();
     }
