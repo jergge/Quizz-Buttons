@@ -3,31 +3,31 @@
 Led::Led(int p)  : IODevice(p)
 {
     pinMode(pin, OUTPUT);
-    Serial.print("Registered an LED on pin ");
-        Serial.println(p);
+    // Serial.print("Registered an LED on pin ");
+    //     Serial.println(p);
     TurnOff();
 
 }
 
 void Led::Update()
 {
-    //Serial.print("Updating     ");
-    if (!enabled)
-    {
-        //Serial.print("enabled was false     ");
-        TurnOff();
-        StopBlink();
-        return;
-    }
-    if(blinking)
-    {
-        if (nextBlinkChange <= millis())
-        {
-            Flip();
-            nextBlinkChange += blinkDelay;
-            //Serial.print("Updating and blinking!     ");
-        }
-    }
+    Serial.println("Updating an LED ");
+    // if (!enabled)
+    // {
+    //     //Serial.print("enabled was false     ");
+    //     TurnOff();
+    //     StopBlink();
+    //     return;
+    // }
+    // if(blinking)
+    // {
+    //     if (nextBlinkChange <= millis())
+    //     {
+    //         Flip();
+    //         nextBlinkChange += blinkDelay;
+    //         //Serial.print("Updating and blinking!     ");
+    //     }
+    // }
 }
 
 void Led::TurnOn()

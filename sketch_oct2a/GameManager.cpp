@@ -23,8 +23,6 @@ void GameManager::Setup()
         {
             playerArray[i] = new Player(i);
         }
-
-    NewRound();
 }
 
 void GameManager::Update()

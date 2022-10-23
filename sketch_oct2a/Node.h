@@ -19,7 +19,7 @@ template <typename T> class Node
         T * GetPointer();
         Node();
         ~Node() {}
-        T * pObject;
+        T * pObject; // A pointer to the object in the List
         Node * pNextNode;
 
     protected:

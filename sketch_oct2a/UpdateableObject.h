@@ -1,5 +1,6 @@
 #pragma once
 #include "LinkedList.h"
+#include "Arduino.h"
 
 class UpdateableObject
 {
@@ -8,5 +9,8 @@ class UpdateableObject
     public:
         virtual void Update();
         UpdateableObject();
-        static void UpdateAll();
+        static void CallUpdates();
+        static void CallLateUpdates();
+        static void TestStatic();
+        static void VerifyObjects();
 };

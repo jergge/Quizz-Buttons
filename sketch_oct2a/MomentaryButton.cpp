@@ -12,8 +12,9 @@ MomentaryButton::MomentaryButton(uint8_t p, bool pull) : IODevice(p)
     } else {
         pinMode(p, INPUT);
     }
-    Serial.print("Registered a button on pin ");
-        Serial.println(p);
+    pullUp = pull;
+    // Serial.print("Registered a button on pin ");
+    //     Serial.println(p);
 }
 
 void MomentaryButton::Update()

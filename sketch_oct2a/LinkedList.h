@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.h"
+#include <HardwareSerial.h>
 
 template <typename T> class LinkedList
 {
@@ -12,7 +13,9 @@ template <typename T> class LinkedList
         int Count();
 
     protected:
-        const Node<T> *head; // A Pointer to the first node in the list
+        Node<T> *head; // A Pointer to the first node in the list
+        Node<T> *tail; // A Pointer to the last node in the list
+        Node<T> *index; // A Pointer to help itterate through the lsit
         int length = 0;
 };
 
@@ -20,26 +23,24 @@ template <typename T>
 LinkedList<T>::LinkedList()
 {
     head = new Node<T>();
+    tail = head;
 }
 
 template <typename T>
 void LinkedList<T>::Append(T* pItem)
 {
-    //Serial.println("adding something to a list ");
-    Node<T> *lastNode = head;
-    while (lastNode->pNextNode != nullptr)
+    if (length == 0)
     {
-        lastNode = lastNode->NextNode();
+        head->pObject = pItem;
+    } else
+    {
+        Node<T> * newNode = new Node<T>();
+        newNode->pNextNode = nullptr;
+        newNode->pObject = pItem;
+        tail->pNextNode = newNode;
+        tail = newNode;
     }
-
-    Node<T> * newNode = new Node<T>();
-
-    lastNode->pNextNode = newNode;
-    newNode->pNextNode = nullptr;
-    newNode->pObject = pItem;
-
-    //Serial.println("New item appened to the list");
-    
+    length++;
 }
 
 template <typename T>
@@ -57,10 +58,17 @@ Node<T> LinkedList<T>::Get(int index)
     }
     Node<T> * node = head;
 
+    int j = 0;
+
     for (int i = 0; i < index; i++)
     {
+        //Serial.println(j);
         node = node->NextNode();
+        j++;
     }
+
+    Serial.print("Returning node number: ");
+    Serial.println(j);
 
     return *node;
 }

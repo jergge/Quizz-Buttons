@@ -9,9 +9,11 @@ class GameManager
         GameManager(int playerCount, Quizzmaster* master);
         void Setup();
         void Update();
+        //Launch state 0 with no lockouts
+        void NewRound();
 
     protected:
-        int numberOfPlayers;
+        int numberOfPlayers; 
         Player * * playerArray = nullptr;
         Quizzmaster * master = nullptr;
         
@@ -30,8 +32,6 @@ class GameManager
         //Loop when the question has been answered and awaiting the master's verdict
         void WaitingForMaster();
         
-        //Launch state 0 with no lockouts
-        void NewRound();
 
         //Lock the round (while an answer is being given)
         void LockRound();
