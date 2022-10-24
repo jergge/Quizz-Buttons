@@ -9,6 +9,7 @@ Player::Player(int pid)
     id = pid;
     led = new Led(pid * 2 + pinOffset);
     button = new MomentaryButton(pid * 2 + 1 + pinOffset, true);
+    name = id;
 }
 
 void Player::Enable()
@@ -30,12 +31,12 @@ void Player::Disable()
 
 bool Player::ButtonPushed()
 {
-    if (!enabled)
+    if (!enabled || !buttonEnabled)
     {
         return false;
     }
 
-    return button->IsPressed();
+    return button->pressed;
 }
 
 void Player::Blink()
@@ -50,15 +51,26 @@ void Player::LedOn()
 {
     led->Enable();
     led->On();
+    led->StopBlink();
 }
 
 void Player::LedOff()
 {
-    led->Disable();
     led->Off();
+    led->Disable();
+    led->StopBlink();
 }
 
 bool Player::IsEnabled()
 {
     return enabled;
+}
+
+void Player::ButtonDisable()
+{
+    buttonEnabled = false;
+}
+void Player::ButtonEnable()
+{
+    buttonEnabled = true;
 }

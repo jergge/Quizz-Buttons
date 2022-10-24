@@ -15,14 +15,19 @@ class Player
         void Blink();
         void LedOn();
         void LedOff();
-        //void LedBlink();
+        void ButtonDisable();
+        void ButtonEnable();
+        String name;
+        //flag for registering players at the start of the game;
+        bool active = false;
 
     protected:
         Led *led = nullptr;
-        int ledBlinkTimeMS = 500;
+        int ledBlinkTimeMS = 250;
         MomentaryButton *button = nullptr;
         
-        //not using the first 2 as i can't bebug over USB
+        //not using the first 2 as can't bebug over USB
         const int pinOffset = 2;
         bool enabled = false;
+        bool buttonEnabled = true;
 };
