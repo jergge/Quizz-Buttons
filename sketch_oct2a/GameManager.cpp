@@ -1,5 +1,6 @@
 #include "GameManager.h"
 
+
 GameManager::GameManager(int playerCount, Quizzmaster* inMaster)
 {
     numberOfPlayers = playerCount; 
@@ -9,20 +10,25 @@ GameManager::GameManager(int playerCount, Quizzmaster* inMaster)
 void GameManager::Setup()
 {
     //initialise the size of the player array
-        Player *array[numberOfPlayers];
-        playerArray = array;
+        // Player *array[numberOfPlayers];
+        // playerArray = array;
+    playerArray = new Player*[numberOfPlayers];
 
-    //create each of the players
-    //we assume that the physical connections are from the lowest number and in ascending order (for now)
+    //create a pointer for each potential player
+    //and store them in the array
         for (int i = 0; i < numberOfPlayers; i++)
         {
             playerArray[i] = new Player(i);
+            playerArray[i]->Enable();
+            playerArray[i]->ButtonEnable();
+            playerArray[i]->LedOff();
         }
+
+    state = -1;
 }
 
 void GameManager::NewRound()
 {
-    delay(200);
         Serial.println(" ");
         Serial.println("New Game round! (new question to answer) ");
         Serial.println(" ");
@@ -36,8 +42,12 @@ void GameManager::EnableAllPlayers()
 {
     for (int i = 0; i<numberOfPlayers; i++)
     {
-        playerArray[i]->Enable();
-        playerArray[i]->LedOn();
+        if (playerArray[i]->active)
+        {
+            playerArray[i]->Enable();
+            playerArray[i]->ButtonEnable();
+            playerArray[i]->LedOn();
+        }
     }
 }
 
@@ -49,6 +59,9 @@ void GameManager::Update()
     } else if   (state == 1)
     {
         WaitingForMaster();
+    } else if   (state == -1)
+    {
+        WaitingForRegistrations();
     }
 }
 
@@ -58,7 +71,7 @@ void GameManager::WaitingForPlayers()
     //keep looping until one is pressed
     for (int i = 0; i < numberOfPlayers; i++)
     {
-        if (playerArray[i]->ButtonPushed())
+        if (playerArray[i]->ButtonPushed() && playerArray[i]->active)
         {
             AwaitingAnswerFrom(i);
             state = 1;
@@ -71,8 +84,9 @@ void GameManager::WaitingForPlayers()
 void GameManager::AwaitingAnswerFrom(int playerID)
 {
     playerAnswering = playerID;
-        DisableAllPlayersLedsExcept(playerAnswering);
-        playerArray[playerAnswering]->Blink();
+    DisableAllPlayersLedsExcept(playerAnswering);
+    playerArray[playerAnswering]->Blink();
+    // playerList.Get(playerAnswering).DataPtr()->Blink();
         Serial.println(" ");
         Serial.print("Awaiting an answer from player ");
         Serial.println(playerID);
@@ -82,13 +96,12 @@ void GameManager::DisableAllPlayersLedsExcept(int id)
 {
     for ( int i = 0; i < numberOfPlayers; i++)
     {
-        if(i != id)
+        if(i != id && playerArray[i]->active)
         {
             playerArray[i]->LedOff();
         }
     }
 }
-
 
 void GameManager::WaitingForMaster()
 {
@@ -97,11 +110,52 @@ void GameManager::WaitingForMaster()
             //Serial.println(" ");
             Serial.println("Oh no! That was the wrong answer... ");
         playerArray[playerAnswering]->Disable();
+        playerArray[playerAnswering]->LedOff();
         ReopenRound();
     } else if (master->Yes())
     {
             Serial.println("Correct answer given. Well Done!");
-        //playerArray[playerAnswering]->LedDisable();
+        NewRound();
+    }
+}
+
+void GameManager::WaitingForRegistrations()
+{
+    for ( int i = 0; i < numberOfPlayers; i++)
+    {
+        // Serial.print("polling player ");
+        // Serial.println(playerArray[i]->name);
+        if (playerArray[i]->ButtonPushed())
+        {
+            Serial.print("Registering player ");
+            playerArray[i]->active = true;
+            playerArray[i]->LedOn();
+            playerArray[i]->ButtonDisable();
+            Serial.println(i);
+        }
+    }
+
+    if (master->Yes())
+    {
+        int activePlayerCount = 0;
+
+        for (int i = 0; i < numberOfPlayers; i++)
+        {
+            if ( playerArray[i]->active )
+            {
+                activePlayerCount++;
+            }
+        }
+
+        if (activePlayerCount == 0)
+        {
+            Serial.println("Cannot start the game with 0 players!");
+            return;            
+        }
+        Serial.print("Starting the game with player count: ");
+        Serial.println(activePlayerCount);
+
+        //progress to the game state!
         NewRound();
     }
 }
@@ -120,19 +174,15 @@ void GameManager::ReopenRound()
     }
 }
 
-
-
-
 bool GameManager::NoActivePlayersRemaining()
 {
     for ( int i = 0; i < numberOfPlayers; i++)
     {
-        if ( playerArray[i]->IsEnabled() )
+        if ( playerArray[i]->IsEnabled() && playerArray[i]->active )
         {
             return false;
         }
     }
-
     return true;
 }
 
@@ -140,7 +190,7 @@ void GameManager::EnableActivePlayersLeds()
 {
     for (int i = 0; i < numberOfPlayers; i++)
     {
-        if ( playerArray[i]->IsEnabled() )
+        if ( playerArray[i]->IsEnabled() && playerArray[i]->active )
         {
             playerArray[i]->LedOn();
         }

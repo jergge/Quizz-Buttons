@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Quizzmaster.h"
+#include "LinkedList.h"
 
 class GameManager
 {
@@ -15,18 +16,26 @@ class GameManager
         void Update();
         
         //Launch state 0 with no lockouts
+        //Enables all players
         void NewRound();
 
     protected:
         //
-        int numberOfPlayers; 
+        int numberOfPlayers;
+        //holds an entry for each possible player
         Player * * playerArray = nullptr;
         Quizzmaster * master = nullptr;
+        //list of pointer to the the player that registerd
+        //(the ones that are actually playing)
+        LinkedList<Player> playerList;
         
         // state -1 = waiting for players to hit their buttons to be registered
         // state 0  = waiting for people to buzz (some may be disabled)
         // state 1  = waiting for quizzmaster to respond
         int state;
+
+        //Loop for setup, waits for players to push their buttons to join the game
+        void WaitingForRegistrations();
 
         //Loop after question has been asked, waiting for players to hit the buttons
         void WaitingForPlayers();
