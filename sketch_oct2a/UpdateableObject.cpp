@@ -9,11 +9,6 @@ UpdateableObject::UpdateableObject()
     objectsList.Append(this);
 }
 
-void UpdateableObject::Update()
-{
-
-}
-
 void UpdateableObject::TestStatic()
 {
     Serial.println("Test function");
@@ -50,4 +45,9 @@ void UpdateableObject::VerifyObjects()
     // //objectsList.Get(4);
 
     // Serial.println("Attempting to Update the 1st object [ .Get(0).pData->Update(); ] ");
+}
+
+void UpdateableObject::Update()
+{
+    
 }
