@@ -4,7 +4,7 @@
 
 class UpdateableObject
 {
-    static LinkedList<UpdateableObject> objects;
+    static LinkedList<UpdateableObject> objectsList;
 
     public:
         virtual void Update();

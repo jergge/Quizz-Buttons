@@ -1,12 +1,12 @@
 #include "UpdateableObject.h"
 #include <HardwareSerial.h>
 
-LinkedList<UpdateableObject> UpdateableObject::objects;
+LinkedList<UpdateableObject> UpdateableObject::objectsList;
 
 UpdateableObject::UpdateableObject()
 {
     // Serial.print(" | Creating UO | ");
-    objects.Append(this);
+    objectsList.Append(this);
 }
 
 void UpdateableObject::Update()
@@ -21,14 +21,15 @@ void UpdateableObject::TestStatic()
 
 void UpdateableObject::CallUpdates()
 {
-    objects.Get(1).pObject->Update();
-    //Serial.println("running the call updates function");
-    // for (int i = 0; i < objects.Count(); i++)
-    // {
-    //     Serial.print("Updateing object # ");
-    //     Serial.println(i);
-    //     objects.Get(i).GetPointer()->Update();
-    // }
+    //objectsList.Get(1).DataPtr()->Update();
+
+    // Serial.println("running the call updates function");
+    for (int i = 0; i < objectsList.Count(); i++)
+    {
+        // Serial.print("Updating object # ");
+        // Serial.println(i);
+        objectsList.Get(i).DataPtr()->Update();
+    }
 
 
 }
@@ -40,13 +41,13 @@ void UpdateableObject::CallLateUpdates()
 
 void UpdateableObject::VerifyObjects()
 {
-    objects.Get(0).pObject->Update();
-    objects.Get(1).pObject->Update();
+    //objectsList.Get(0).DataPtr()->Update();
+    //objectsList.Get(1).DataPtr()->Update();
     // Serial.print("there are ");
-    // Serial.print(objects.Count());
-    // Serial.println(" objects in the list.");
+    // Serial.print(objectsList.Count());
+    // Serial.println(" objectsList in the list.");
 
-    // //objects.Get(4);
+    // //objectsList.Get(4);
 
-    // Serial.println("Attempting to Update the 1st object [ .Get(0).pObject->Update(); ] ");
+    // Serial.println("Attempting to Update the 1st object [ .Get(0).pData->Update(); ] ");
 }

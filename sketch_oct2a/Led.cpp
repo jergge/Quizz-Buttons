@@ -11,23 +11,23 @@ Led::Led(int p)  : IODevice(p)
 
 void Led::Update()
 {
-    Serial.println("Updating an LED ");
-    // if (!enabled)
-    // {
-    //     //Serial.print("enabled was false     ");
-    //     TurnOff();
-    //     StopBlink();
-    //     return;
-    // }
-    // if(blinking)
-    // {
-    //     if (nextBlinkChange <= millis())
-    //     {
-    //         Flip();
-    //         nextBlinkChange += blinkDelay;
-    //         //Serial.print("Updating and blinking!     ");
-    //     }
-    // }
+    // Serial.println("Updating an LED ");
+    if (!enabled)
+    {
+        //Serial.print("enabled was false     ");
+        TurnOff();
+        StopBlink();
+        return;
+    }
+    if(blinking)
+    {
+        if (nextBlinkChange <= millis())
+        {
+            Flip();
+            nextBlinkChange += blinkDelay;
+            //Serial.print("Updating and blinking!     ");
+        }
+    }
 }
 
 void Led::TurnOn()
