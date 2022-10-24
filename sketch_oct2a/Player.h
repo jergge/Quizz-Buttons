@@ -2,12 +2,6 @@
 #include "Led.h"
 #include "MomentaryButton.h"
 
-//holdes everything tied to a player including
-//the buzzer (button)
-//info light for the quizzmaster
-//a function to lock them out for a round
-//... and a function to reenable them
-
 class Player
 {
     public:
@@ -18,11 +12,14 @@ class Player
         bool IsEnabled();
         void Enable();
         void Disable();
-        void LedEnable();
-        void LedDisable();
+        void Blink();
+        void LedOn();
+        void LedOff();
+        //void LedBlink();
 
     protected:
         Led *led = nullptr;
+        int ledBlinkTimeMS = 500;
         MomentaryButton *button = nullptr;
         
         //not using the first 2 as i can't bebug over USB

@@ -11,21 +11,26 @@ Led::Led(int p)  : IODevice(p)
 
 void Led::Update()
 {
-    // Serial.println("Updating an LED ");
+    // Serial.print("Updating an LED on pin ");
+    // Serial.println(pin);
     if (!enabled)
     {
-        //Serial.print("enabled was false     ");
         TurnOff();
         StopBlink();
         return;
+        //Serial.println("Turning off an led... v");
     }
     if(blinking)
     {
         if (nextBlinkChange <= millis())
         {
             Flip();
-            nextBlinkChange += blinkDelay;
-            //Serial.print("Updating and blinking!     ");
+            // nextBlinkChange += blinkDelay;
+            // Serial.println("Updating and blinking!     ");
+            // Serial.println(enabled);
+            // Serial.println(blinking);
+            // Serial.println(nextBlinkChange);
+            // Serial.println(millis());
         }
     }
 }
@@ -67,6 +72,8 @@ void Led::Blink(int d, bool startOn)
 {
     blinkDelay = d;
 
+    enabled = true;
+
     if (!blinking)
     {
         if (startOn)
@@ -87,12 +94,4 @@ void Led::Blink(int d, bool startOn)
 void Led::StopBlink()
 {
     blinking = false;
-    //Serial.print("      I have stopped blinking      ");
-    if (true == false)
-    {
-        TurnOn();
-    } else
-    {
-        TurnOff();
-    }
 }

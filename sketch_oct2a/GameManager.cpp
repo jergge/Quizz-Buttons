@@ -9,12 +9,7 @@ GameManager::GameManager(int playerCount, Quizzmaster* inMaster)
 void GameManager::Setup()
 {
     //initialise the size of the player array
-        // Player *array;
         Player *array[numberOfPlayers];
-        // array = new Player[(sizeof(Player*)) * numberOfPlayers];
-        // array = new Player[(sizeof(Player*)) * numberOfPlayers];
-        //and assign the pointer to the array to the class member
-        // playerArray = *array;
         playerArray = array;
 
     //create each of the players
@@ -23,6 +18,27 @@ void GameManager::Setup()
         {
             playerArray[i] = new Player(i);
         }
+}
+
+void GameManager::NewRound()
+{
+    delay(200);
+        Serial.println(" ");
+        Serial.println("New Game round! (new question to answer) ");
+        Serial.println(" ");
+    EnableAllPlayers();
+
+    //set the sate to 0
+    state = 0;
+}
+
+void GameManager::EnableAllPlayers()
+{
+    for (int i = 0; i<numberOfPlayers; i++)
+    {
+        playerArray[i]->Enable();
+        playerArray[i]->LedOn();
+    }
 }
 
 void GameManager::Update()
@@ -45,8 +61,6 @@ void GameManager::WaitingForPlayers()
         if (playerArray[i]->ButtonPushed())
         {
             AwaitingAnswerFrom(i);
-            playerArray[i]->LedEnable();
-            DisableAllPlayersLedsExcept(i);
             state = 1;
             Serial.println(" ");
             break;
@@ -57,10 +71,24 @@ void GameManager::WaitingForPlayers()
 void GameManager::AwaitingAnswerFrom(int playerID)
 {
     playerAnswering = playerID;
+        DisableAllPlayersLedsExcept(playerAnswering);
+        playerArray[playerAnswering]->Blink();
         Serial.println(" ");
         Serial.print("Awaiting an answer from player ");
         Serial.println(playerID);
 }
+
+void GameManager::DisableAllPlayersLedsExcept(int id)
+{
+    for ( int i = 0; i < numberOfPlayers; i++)
+    {
+        if(i != id)
+        {
+            playerArray[i]->LedOff();
+        }
+    }
+}
+
 
 void GameManager::WaitingForMaster()
 {
@@ -68,13 +96,12 @@ void GameManager::WaitingForMaster()
     {
             //Serial.println(" ");
             Serial.println("Oh no! That was the wrong answer... ");
-        playerArray[playerAnswering]->LedDisable();
         playerArray[playerAnswering]->Disable();
         ReopenRound();
     } else if (master->Yes())
     {
             Serial.println("Correct answer given. Well Done!");
-        playerArray[playerAnswering]->LedDisable();
+        //playerArray[playerAnswering]->LedDisable();
         NewRound();
     }
 }
@@ -93,37 +120,8 @@ void GameManager::ReopenRound()
     }
 }
 
-void GameManager::NewRound()
-{
-    delay(200);
-        Serial.println(" ");
-        Serial.println("New Game round! (new question to answer) ");
-        Serial.println(" ");
-    EnableAllPlayers();
 
-    //set the sate to 0
-    state = 0;
-}
 
-void GameManager::DisableAllPlayersLedsExcept(int id)
-{
-    for ( int i = 0; i < numberOfPlayers; i++)
-    {
-        if(i != id)
-        {
-            playerArray[i]->LedDisable();
-        }
-    }
-}
-
-void GameManager::EnableAllPlayers()
-{
-     //enable all the players (default is false in the class)
-    for (int i = 0; i<numberOfPlayers; i++)
-    {
-        playerArray[i]->Enable();
-    }
-}
 
 bool GameManager::NoActivePlayersRemaining()
 {
@@ -144,7 +142,7 @@ void GameManager::EnableActivePlayersLeds()
     {
         if ( playerArray[i]->IsEnabled() )
         {
-            playerArray[i]->LedEnable();
+            playerArray[i]->LedOn();
         }
     }
 }

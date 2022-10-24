@@ -6,33 +6,27 @@ Player::Player(){}
 //player IDs starting from index in const pin offset
 Player::Player(int pid)
 {
-        // Serial.println(" ");
-        // Serial.print("Creating Player ");
-        // Serial.println(pid);
     id = pid;
-    //Serial.print("Creating led ");
     led = new Led(pid * 2 + pinOffset);
-    // Serial.print("Creating button ");
     button = new MomentaryButton(pid * 2 + 1 + pinOffset, true);
 }
 
 void Player::Enable()
 {
     enabled = true;
-    // Serial.print("Player ");
-    //     Serial.print(id);
-    //     Serial.println(" has been enabled");
-    LedEnable();
+    led->Enable();
+    button->Enable();
 }
 
 void Player::Disable()
 {
     enabled = false;
-    // Serial.print("Player ");
-    //     Serial.print(id);
-    //     Serial.println(" has been disabled");
-    LedDisable();
+    led->Disable();
+    led->StopBlink();
+    led->Off();
+    button->Disable();
 }
+
 
 bool Player::ButtonPushed()
 {
@@ -41,37 +35,27 @@ bool Player::ButtonPushed()
         return false;
     }
 
-    if (button->IsPressed())
-    {
-        // Serial.print("Player ");
-        //     Serial.print(id);
-        //     Serial.println("'s button is pressed!");
-    } else
-    {
-        // Serial.print("Player ");
-        //     Serial.print(id);
-        //     Serial.println("'s button is NOT pressed!");
-
-    }
     return button->IsPressed();
 }
 
-void Player::LedDisable()
+void Player::Blink()
 {
-    led->Disable();
-//             Serial.print("Player ");
-//         Serial.print(id);
-//         Serial.println("'s LED is off");
+    if (enabled)
+    {
+        led->Blink(ledBlinkTimeMS, true);
+    }
 }
 
-void Player::LedEnable()
+void Player::LedOn()
 {
     led->Enable();
-    //led->On();
-    led->Blink(500, true);
-    // Serial.print("Player ");
-    //     Serial.print(id);
-    //     Serial.println("'s LED is on");
+    led->On();
+}
+
+void Player::LedOff()
+{
+    led->Disable();
+    led->Off();
 }
 
 bool Player::IsEnabled()
