@@ -1,12 +1,15 @@
 #include "GameManager.h"
 #include "UpdateableObject.h"
 #include "Arduino.h"
+#include "Buzzer.h"
 
-//max number of player is 6 (uses digital pins 2-13)
-const int numberOfPlayers = 2;
+//max number of player is 6 (uses digital pins 2-13, each player need 2 pins)
+const int MaxNumberOfPlayers = 5;
 
 Quizzmaster *master = nullptr;
 GameManager *GM = nullptr;
+Buzzer *buzzer = nullptr;
+
 
 void setup() 
 {
@@ -16,7 +19,8 @@ void setup()
     Serial.println(" ");
 
     master = new Quizzmaster(A0, A1);
-    GM = new GameManager(numberOfPlayers, master);
+    GM = new GameManager(MaxNumberOfPlayers, master);
+    buzzer = new Buzzer(13);
 
   GM->Setup();
 
@@ -25,7 +29,6 @@ void setup()
     Serial.println(" ");
     //Serial.println(" ");
 
-  GM->NewRound();
 }
 
 void loop() 
