@@ -1,6 +1,7 @@
 #pragma once
-#include "LinkedList.h"
 #include "Arduino.h"
+#include <HardwareSerial.h>
+#include "LinkedList.h"
 
 class UpdateableObject
 {

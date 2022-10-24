@@ -1,5 +1,5 @@
 #include "UpdateableObject.h"
-#include <HardwareSerial.h>
+
 
 LinkedList<UpdateableObject> UpdateableObject::objectsList;
 
