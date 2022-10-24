@@ -3,36 +3,37 @@
 template <typename T> class Node
 {
     public:
-        bool EndOfList() {
-            if (pNextNode == nullptr)
-            {
-                return true;
-            }
-            return false;
-        }
-        
-        Node * NextNode() 
-        {
-            return pNextNode;
-        }
+        bool EndOfList();
 
-        T * GetPointer();
-        Node();
+        T * DataPtr();
+        Node(T * data);
         ~Node() {}
-        T * pObject; // A pointer to the object in the List
-        Node * pNextNode;
+
+        Node * pNextNode = nullptr;
 
     protected:
+        T * pData; // A pointer to the data of the Node
 };
 
 template <typename T>
-T * Node<T>::GetPointer()
+bool Node<T>::EndOfList()
 {
-    return pObject;
+    if (pNextNode == nullptr)
+    {
+        return true;
+    }
+    return false;
 }
 
 template <typename T>
-Node<T>::Node()
+T * Node<T>::DataPtr()
 {
+    return pData;
+}
+
+template <typename T>
+Node<T>::Node(T * data)
+{
+    pData = data;
     pNextNode = nullptr;
 }
