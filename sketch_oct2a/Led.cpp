@@ -1,10 +1,10 @@
 #include "Led.h"
 
-Led::Led(int p)  : IODevice(p)
+Led::Led(uint8_t p)  : IODevice(p)
 {
     pinMode(pin, OUTPUT);
-    // Serial.print("Registered an LED on pin ");
-    //     Serial.println(p);
+    Serial.print("Registered an LED on pin ");
+        Serial.println(p);
     TurnOff();
 
 }
@@ -25,12 +25,12 @@ void Led::Update()
         if (nextBlinkChange <= millis())
         {
             Flip();
-            // nextBlinkChange += blinkDelay;
+            nextBlinkChange += blinkDelay;
             // Serial.println("Updating and blinking!     ");
             // Serial.println(enabled);
             // Serial.println(blinking);
+            // Serial.println(millis()); 
             // Serial.println(nextBlinkChange);
-            // Serial.println(millis());
         }
     }
 }
@@ -49,6 +49,7 @@ void Led::TurnOff()
 
 void Led::Flip()
 {
+    Serial.println("Flipping LED");
     if(output)
     {
         TurnOff();
@@ -88,7 +89,8 @@ void Led::Blink(int d, bool startOn)
     nextBlinkChange = d + millis();
     blinking = true;
 
-    //Serial.print("Set blinking to true      ");
+    // Serial.print("Set blinking to true      ");
+    // Serial.println(d);
 }
 
 void Led::StopBlink()

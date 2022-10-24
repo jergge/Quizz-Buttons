@@ -5,7 +5,7 @@
 class Led: public IODevice, public UpdateableObject
 {
     public:
-        Led(int pinNumber);
+        Led(uint8_t pinNumber);
         void Update() override;
         void On();
         void Off();
