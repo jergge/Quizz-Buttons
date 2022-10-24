@@ -21,7 +21,7 @@ class UpdateRegister
     //     {
     //         for (int i = 0; i < list.Count(); i++)
     //         {
-    //             list.Get(i).GetPointer()->Update();
+    //             list.Get(i).DataPtr()->Update();
     //         }
     //     }
 

@@ -10,10 +10,10 @@ Quizzmaster::Quizzmaster(uint8_t y, uint8_t n)
 
 bool Quizzmaster::No()
 {
-    return buttonNo->Pressed();
+    return buttonNo->IsPressed();
 }
 
 bool Quizzmaster::Yes()
 {
-    return buttonYes->Pressed();
+    return buttonYes->IsPressed();
 }

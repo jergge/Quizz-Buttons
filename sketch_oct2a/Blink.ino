@@ -18,10 +18,7 @@ void setup()
     master = new Quizzmaster(A0, A1);
     GM = new GameManager(numberOfPlayers, master);
 
-    //UpdateableObject * test = new UpdateableObject();
-
   GM->Setup();
-  //UpdateableObject::VerifyObjects();
 
     Serial.println(" ");
     Serial.println("Setup Complete!");
@@ -34,6 +31,5 @@ void setup()
 void loop() 
 {
   GM->Update();
-  UpdateableObject::VerifyObjects();
-  //UpdateableObject::CallUpdates();
+  UpdateableObject::CallUpdates();
 }

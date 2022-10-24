@@ -41,7 +41,7 @@ bool Player::ButtonPushed()
         return false;
     }
 
-    if (button->Pressed())
+    if (button->IsPressed())
     {
         // Serial.print("Player ");
         //     Serial.print(id);
@@ -53,7 +53,7 @@ bool Player::ButtonPushed()
         //     Serial.println("'s button is NOT pressed!");
 
     }
-    return button->Pressed();
+    return button->IsPressed();
 }
 
 void Player::LedDisable()
