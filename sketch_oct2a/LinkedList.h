@@ -10,7 +10,9 @@ template <typename T> class LinkedList
         void Append(T * pItem);
         void Remove(T * pItem);
         Node<T> Get(int item);
+        T GetData(int item);
         int Count();
+        void Clear();
 
     protected:
         Node<T> *pHead; // A Pointer to the first node in the list
@@ -30,6 +32,7 @@ LinkedList<T>::LinkedList()
 template <typename T>
 void LinkedList<T>::Append(T* pItem)
 {
+    //Serial.println("adding something to a LinkedList");
     if (length == 0)
     {
         pHead = new Node<T>(pItem);
@@ -55,7 +58,8 @@ Node<T> LinkedList<T>::Get(int index)
 {
     if (index > Count())
     {
-        // handle overflow...
+        Serial.println("LinkedList::Get is out of bounds");
+        return Node<T>(nullptr);
     }
     Node<T> * node = pHead;
 
@@ -72,4 +76,32 @@ Node<T> LinkedList<T>::Get(int index)
     // Serial.println(j);
 
     return *node;
+}
+
+template <typename T>
+T LinkedList<T>::GetData(int index)
+{
+    return *Get(index).DataPtr;
+}
+
+template <typename T>
+void LinkedList<T>::Clear()
+{
+    if ( length == 0 )
+    {
+        return;
+    }
+
+    Node<T> * next;
+    int count = Count();
+    for (int i = 0; i < count; i++)
+    {
+        next = pHead->pNextNode;
+        delete pHead;
+        pHead = next;
+        length --;
+    }
+
+    pHead = nullptr;
+    pTail = nullptr;
 }
