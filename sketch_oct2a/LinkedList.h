@@ -6,18 +6,22 @@ template <typename T> class LinkedList
 {
     public:
         LinkedList();
-        void Push(T * pItem);
-        void Append(T * pItem);
-        void Remove(T * pItem);
+        //Add an item to the start of the list
+        void Push(T * pNewItem);
+        //Add an item to the end of the list
+        void Append(T * pNewItem);
+        void Remove(T * pNewItem);
         Node<T> Get(int item);
         T GetData(int item);
+        //Returns the number of items in the list
         int Count();
+        //Not Yet Tested!
         void Clear();
 
     protected:
         Node<T> *pHead; // A Pointer to the first node in the list
         Node<T> *pTail; // A Pointer to the last node in the list
-        Node<T> *index; // A Pointer to help itterate through the lsit
+        Node<T> *index; // A Pointer to help iterate through the lsit
         int length = 0;
 };
 
@@ -30,19 +34,19 @@ LinkedList<T>::LinkedList()
 }
 
 template <typename T>
-void LinkedList<T>::Append(T* pItem)
+void LinkedList<T>::Append(T* pNewItem)
 {
     //Serial.println("adding something to a LinkedList");
     if (length == 0)
     {
-        pHead = new Node<T>(pItem);
+        pHead = new Node<T>(pNewItem);
         pTail = pHead;
     } else
     {
-        Node<T> * newNode = new Node<T>( pItem);
-        newNode->pNextNode = nullptr;
-        pTail->pNextNode = newNode;
-        pTail = newNode;
+        Node<T> * pNewNode = new Node<T>(pNewItem);
+        pNewNode->pNextNode = nullptr;
+        pTail->pNextNode = pNewNode;
+        pTail = pNewNode;
     }
     length++;
 }
@@ -58,7 +62,7 @@ Node<T> LinkedList<T>::Get(int index)
 {
     if (index > Count())
     {
-        Serial.println("LinkedList::Get is out of bounds");
+        Serial.println(F("LinkedList::Get is out of bounds"));
         return Node<T>(nullptr);
     }
     Node<T> * node = pHead;
@@ -67,7 +71,6 @@ Node<T> LinkedList<T>::Get(int index)
 
     for (int i = 0; i < index; i++)
     {
-        //Serial.println(j);
         node = node->pNextNode;
         j++;
     }

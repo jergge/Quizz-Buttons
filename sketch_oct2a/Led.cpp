@@ -3,7 +3,7 @@
 Led::Led(uint8_t p)  : IODevice(p)
 {
     pinMode(pin, OUTPUT);
-    Serial.print("Registered an LED on pin ");
+    Serial.print(F("Registered an LED on pin "));
         Serial.println(p);
     TurnOff();
 
@@ -49,7 +49,7 @@ void Led::TurnOff()
 
 void Led::Flip()
 {
-    Serial.println("Flipping LED");
+    Serial.println(F("Flipping LED"));
     if(output)
     {
         TurnOff();

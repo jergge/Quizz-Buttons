@@ -11,7 +11,7 @@ UpdateableObject::UpdateableObject()
 
 void UpdateableObject::TestStatic()
 {
-    Serial.println("Test function");
+    Serial.println(F("Test function"));
 }
 
 void UpdateableObject::CallUpdates()

@@ -11,8 +11,13 @@ class Buzzer : public UpdateableObject, IODevice
         void Off();
         void Flip();
 
+        //make a sound for a number of miliseconds
+        //buzzer is enabled when this functin is called
+        void PlayForMS(unsigned long duration);
+
     private:
-        int nextPulse;
-        int pulseDelayMS = 10;
+        unsigned long nextPulse;
+        unsigned long pulseDelayMS = 10;
+        unsigned long endTime;
         bool on = false;
 };
