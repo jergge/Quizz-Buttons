@@ -11,8 +11,6 @@ Led::Led(uint8_t p)  : IODevice(p)
 
 void Led::Update()
 {
-    // Serial.print("Updating an LED on pin ");
-    // Serial.println(pin);
     if (!enabled)
     {
         TurnOff();
@@ -26,11 +24,6 @@ void Led::Update()
         {
             Flip();
             nextBlinkChange += blinkDelay;
-            // Serial.println("Updating and blinking!     ");
-            // Serial.println(enabled);
-            // Serial.println(blinking);
-            // Serial.println(millis()); 
-            // Serial.println(nextBlinkChange);
         }
     }
 }
@@ -49,7 +42,7 @@ void Led::TurnOff()
 
 void Led::Flip()
 {
-    Serial.println(F("Flipping LED"));
+    // Serial.println(F("Flipping LED"));
     if(output)
     {
         TurnOff();

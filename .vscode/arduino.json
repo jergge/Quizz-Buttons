@@ -1,7 +1,8 @@
 {
-    "board": "arduino:avr:uno",
-    "port": "COM3",
+    "board": "arduino:avr:mega",
+    "port": "COM4",
     "sketch": "sketch_oct2a\\Blink.ino",
     "output": "G:\\Quizz Buttons\\output",
-    "programmer": "arduinoasisp"
+    "programmer": "arduinoasisp",
+    "configuration": "cpu=atmega2560"
 }

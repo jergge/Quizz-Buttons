@@ -18,9 +18,9 @@ void setup()
     Serial.println(" ");
     Serial.println(F("Performing initial setup......... "));
     Serial.println(" ");
-    master = new Quizzmaster(A0, A1);
-    buzzer = new Buzzer(13);
-    GM = new GameManager(MaxNumberOfPlayers, master, buzzer);
+    master = new Quizzmaster(30, 31);
+    //buzzer = new Buzzer(13);
+    GM = new GameManager(MaxNumberOfPlayers, master);
 
   GM->Setup();
 
@@ -33,6 +33,6 @@ void setup()
 
 void loop() 
 {
-  // UpdateableObject::CallUpdates();
-  // GM->Update();
+  UpdateableObject::CallUpdates();
+  GM->Update();
 }

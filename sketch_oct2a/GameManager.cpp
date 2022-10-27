@@ -21,13 +21,14 @@ void GameManager::Setup()
 
         for (int i = 0; i < numberOfPlayers; i++)
         {
-            playerArray[i] = new Player(i);
+            playerArray[i] = new Player(i, playersUsingPullUpResistors);
             playerArray[i]->Enable();
             playerArray[i]->ButtonEnable();
             playerArray[i]->LedOff();
         }
 
-    state = -1;
+    // state = -1;
+    ChangeState(-1);
 }
 
 void GameManager::NewRound()
@@ -37,7 +38,8 @@ void GameManager::NewRound()
         Serial.println(" ");
     EnableAllPlayers();
 
-    state = 0;
+    // state = 0;
+    ChangeState(0);
 }
 
 void GameManager::EnableAllPlayers()
@@ -76,7 +78,8 @@ void GameManager::WaitingForPlayers()
         if (playerArray[i]->ButtonPushed() && playerArray[i]->active)
         {
             AwaitingAnswerFrom(i);
-            state = 1;
+            // state = 1;
+            ChangeState(1);
             Serial.println(" ");
             break;
         }
@@ -128,8 +131,8 @@ void GameManager::WaitingForRegistrations()
 {
     for ( int i = 0; i < numberOfPlayers; i++)
     {
-        // Serial.print(F("polling player "));
-        // Serial.println(F(playerArray[i]->name));
+    //     Serial.print(F("polling player "));
+    //     Serial.println(playerArray[i]->name);
         if (playerArray[i]->ButtonPushed())
         {
             Serial.print(F("Registering player "));
@@ -172,7 +175,8 @@ void GameManager::ReopenRound()
         NewRound();
     } else {
         EnableActivePlayersLeds();
-        state = 0;
+        // state = 0;
+        ChangeState(0);
             Serial.println(" ");
             Serial.println(F("Reopening round for remaining players "));
             Serial.println(" ");

@@ -4,11 +4,12 @@
 Player::Player(){}
 
 //player IDs starting from index in const pin offset
-Player::Player(int pid)
+Player::Player(int pid, bool iPullUp)
 {
     id = pid;
+    pullUp = iPullUp;
     led = new Led(pid * 2 + pinOffset);
-    button = new MomentaryButton(pid * 2 + 1 + pinOffset, true);
+    button = new MomentaryButton(pid * 2 + 1 + pinOffset, pullUp);
     name = id;
 }
 

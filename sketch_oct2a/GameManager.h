@@ -26,6 +26,8 @@ class GameManager
         int numberOfPlayers;
         //holds an entry for each possible player
         Player * * playerArray = nullptr;
+
+        const static bool playersUsingPullUpResistors = false;
         Quizzmaster * master = nullptr;
         Buzzer * buzzer = nullptr;
         //list of pointer to the the player that registerd

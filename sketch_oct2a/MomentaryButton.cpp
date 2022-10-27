@@ -16,25 +16,16 @@ MomentaryButton::MomentaryButton(uint8_t p, bool pull) : IODevice(p)
 
 void MomentaryButton::Update()
 {
-    int currentState = IsPressed();
-
-    if ( IsPressed() )
-    {   
-        // Serial.print("      1     ");
-    } else if( !IsPressed() )
-    {
-        // Serial.print("      0      ");
-    }
-
+    // Serial.println(F("Updating a button "));
     if ( IsPressed() != wasPressedLast )
     {
         if ( IsPressed() )
         {
-           // Serial.println("button pressed down      ");
+        //    Serial.println(F("button pressed down      "));
             pressed = true;
         } else
         {
-            //Serial.println("      button released      ");
+            // Serial.println(F("      button released      "));
             pressed = false;
         }
     }

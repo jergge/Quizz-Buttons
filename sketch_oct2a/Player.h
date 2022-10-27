@@ -6,7 +6,7 @@ class Player
 {
     public:
         Player();
-        Player(int playerID);
+        Player(int playerID, bool pullUp);
         int id;
         bool ButtonPushed();
         bool IsEnabled();
@@ -21,7 +21,7 @@ class Player
         //flag for registering players at the start of the game;
         bool active = false;
 
-    protected:
+    protected: 
         Led *led = nullptr;
         int ledBlinkTimeMS = 250;
         MomentaryButton *button = nullptr;
@@ -29,5 +29,6 @@ class Player
         //not using the first 2 as can't bebug over USB
         const int pinOffset = 2;
         bool enabled = false;
+        bool pullUp;
         bool buttonEnabled = true;
 };
